@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "DigiElevate2(Demo)"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a0f7b878-9ec2-47a0-aab0-7b77df899b78"
+  }
+}
