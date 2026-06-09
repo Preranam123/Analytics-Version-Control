@@ -1,0 +1,18 @@
+relationship 49fdae10-bea3-4568-b379-825dbed40cdf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Action_Centre.DueDate
+	toColumn: LocalDateTable_4e7c8807-fe5f-409d-a501-526140596fc0.Date
+
+relationship AutoDetected_8849eb85-08f5-462f-822b-73c77bc06f1d
+	fromColumn: KPI_Monthly.Month
+	toColumn: Revenue_vs_Cost.Month
+
+relationship c4e5282b-e97a-49f2-9e86-2f5ec455b937
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.Date
+	toColumn: LocalDateTable_ee77dfa4-aaa0-4f05-861d-3de360bef216.Date
+
+relationship 38f98db3-4186-3429-28e4-0e12e773e037
+	fromColumn: KPI_Monthly.Date
+	toColumn: DimDate.Date
+

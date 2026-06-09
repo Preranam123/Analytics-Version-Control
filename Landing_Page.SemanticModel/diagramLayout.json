@@ -1,0 +1,138 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 1251.199951171875,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 594,
+            "y": 0
+          },
+          "nodeIndex": "Action_Centre",
+          "nodeLineageTag": "6926efb6-5001-4e4e-991b-a4b780e1cf67",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 852,
+            "y": 73
+          },
+          "nodeIndex": "Capacity_Domain",
+          "nodeLineageTag": "497d5290-6674-4e24-8a75-462e54239aac",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 259,
+            "y": 0
+          },
+          "nodeIndex": "KPI_Monthly",
+          "nodeLineageTag": "85992954-6a8b-479f-a510-5c01cefadff5",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1136,
+            "y": 25
+          },
+          "nodeIndex": "PM_Scorecard",
+          "nodeLineageTag": "51c3f417-b8fa-4bfc-ab1d-6e5a38ea4ee6",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 2,
+            "y": 0
+          },
+          "nodeIndex": "Revenue_vs_Cost",
+          "nodeLineageTag": "816bb374-795c-432c-9299-d001d1e45d88",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1420,
+            "y": 73
+          },
+          "nodeIndex": "Workforce_Mix",
+          "nodeLineageTag": "12df270a-d0cb-4fcf-8921-c7bf46bf45e8",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1654,
+            "y": 97
+          },
+          "nodeIndex": "Measures (2)",
+          "nodeLineageTag": "db731891-d2f6-4e2a-ad02-d3f954ce88b8",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 202.7999267578125,
+            "y": 362
+          },
+          "nodeIndex": "DimDate",
+          "nodeLineageTag": "ca58b80c-70cd-4c40-a454-806aaa540477",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1936,
+            "y": 181
+          },
+          "nodeIndex": "Revenue_vs_Cost_New",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

@@ -1,0 +1,33 @@
+table Capacity_Domain
+	lineageTag: 497d5290-6674-4e24-8a75-462e54239aac
+
+	column Domain
+		dataType: string
+		lineageTag: dc2aac5e-5531-4edc-a6c8-fb6a6d9b3731
+		summarizeBy: none
+		sourceColumn: Domain
+
+		annotation SummarizationSetBy = Automatic
+
+	column Headcount
+		dataType: int64
+		formatString: 0
+		lineageTag: a86b865b-c712-4237-b4ae-514a4366da00
+		summarizeBy: sum
+		sourceColumn: Headcount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Capacity_Domain = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Prerana\Downloads\Founder_Command_Center_Updated_Dataset.xlsx"), null, true),
+				    Capacity_Domain_Sheet = Source{[Item="Capacity_Domain",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Capacity_Domain_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Domain", type text}, {"Headcount", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

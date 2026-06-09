@@ -1,0 +1,87 @@
+table PM_Scorecard
+	lineageTag: 51c3f417-b8fa-4bfc-ab1d-6e5a38ea4ee6
+
+	measure 'PM Utilization %' =
+			
+			DIVIDE(
+			    SELECTEDVALUE(PM_Scorecard[UtilizationPct]),
+			    100
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: 3448d535-e757-4254-8271-11fec4f592f7
+
+	measure 'Bill %' =
+			
+			DIVIDE(
+			    SELECTEDVALUE(PM_Scorecard[BillabilityPct]),
+			    100
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: 9ea076b3-8e69-404b-88b2-7977da3e642b
+
+	column PMName
+		dataType: string
+		lineageTag: 206e99cd-f68e-4559-8be5-55a07320ff0d
+		summarizeBy: none
+		sourceColumn: PMName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Department
+		dataType: string
+		lineageTag: 0e7d5c16-34af-4fc1-8c36-06fe2f2daecf
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = Automatic
+
+	column Projects
+		dataType: int64
+		formatString: 0
+		lineageTag: f6996b2d-88a9-42ff-a1ea-e7dda5267cef
+		summarizeBy: sum
+		sourceColumn: Projects
+
+		annotation SummarizationSetBy = Automatic
+
+	column UtilizationPct
+		dataType: int64
+		lineageTag: ab36386a-8075-4747-afc6-7a905e149aaa
+		summarizeBy: sum
+		sourceColumn: UtilizationPct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column BillabilityPct
+		dataType: int64
+		formatString: 0
+		lineageTag: bf18e2d1-6786-420f-8eee-c15002f992dc
+		summarizeBy: sum
+		sourceColumn: BillabilityPct
+
+		annotation SummarizationSetBy = Automatic
+
+	column Risks
+		dataType: int64
+		formatString: 0
+		lineageTag: a9be0149-cd9a-4ef1-b5da-130e0a3c6ea4
+		summarizeBy: sum
+		sourceColumn: Risks
+
+		annotation SummarizationSetBy = Automatic
+
+	partition PM_Scorecard = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Prerana\Downloads\Founder_Command_Center_Updated_Dataset.xlsx"), null, true),
+				    PM_Scorecard_Sheet = Source{[Item="PM_Scorecard",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(PM_Scorecard_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"PMName", type text}, {"Department", type text}, {"Projects", Int64.Type}, {"UtilizationPct", Int64.Type}, {"BillabilityPct", Int64.Type}, {"Risks", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

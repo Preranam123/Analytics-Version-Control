@@ -1,0 +1,361 @@
+table 'Measures (2)'
+	lineageTag: db731891-d2f6-4e2a-ad02-d3f954ce88b8
+
+	measure 'Current Value' =
+			
+			MAX(KPI_Monthly[Actual])
+		formatString: 0
+		lineageTag: 3bc9a6e5-c55d-441b-bbb3-de54b2413fd0
+
+	measure 'Target Value' =
+			
+			MAX(KPI_Monthly[Target])
+		formatString: 0
+		lineageTag: ed87b489-0433-44c9-9073-74b1abbfb110
+
+	measure 'Previous Month' =
+			
+			CALCULATE(
+			    MAX(KPI_Monthly[Actual]),
+			    PREVIOUSMONTH(KPI_Monthly[Date])
+			)
+		formatString: 0
+		lineageTag: 131003ae-54ac-4c42-a318-966ea0e6788e
+
+	measure 'MoM Growth %' =
+			
+			DIVIDE(
+			    [Current Value] - [Previous Month],
+			    [Previous Month]
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: 8eaa943d-9056-4722-b056-6263ccbd534a
+
+	measure Variance =
+			
+			[Current Value] - [Target Value]
+		formatString: 0
+		lineageTag: 6b673fee-d243-4b74-b185-a34d473fa810
+
+	measure 'Variance %' =
+			
+			DIVIDE(
+			    [Variance],
+			    [Target Value]
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: 429b6589-9a73-4320-a6c8-ee65a25bbe35
+
+	measure 'KPI Status' =
+			
+			SWITCH(
+			    TRUE(),
+			    [Variance %] >= 0 , "Green",
+			    [Variance %] >= -0.1 , "Amber",
+			    "Red"
+			)
+		lineageTag: 23919c10-1fef-45bc-a6ff-2747817b42c5
+
+	measure 'Total Employees' =
+			
+			CALCULATE(
+			    MAX(KPI_Monthly[Actual]),
+			    KPI_Monthly[KPI] = "Total Employees"
+			)
+		formatString: 0
+		lineageTag: 08ea5693-68c7-4f59-be0e-904cc0cb91e8
+
+	measure 'Bench %' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        MAX(KPI_Monthly[Actual]),
+			        KPI_Monthly[KPI] = "Bench %"
+			    ),
+			    100
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: 6b56b83f-6b46-464a-82c2-ffcfb60c470c
+
+	measure 'Billability %' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        MAX(KPI_Monthly[Actual]),
+			        KPI_Monthly[KPI] = "Billability %"
+			    ),
+			    100
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: 844a9151-1e10-498f-a99e-5b9464053e44
+
+	measure 'Utilization %' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        MAX(KPI_Monthly[Actual]),
+			        KPI_Monthly[KPI] = "Utilization %"
+			    ),
+			    100
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: d4080cb3-0c95-4dbf-bfb3-e376c750fe15
+
+	measure 'Total Clients' =
+			
+			CALCULATE(
+			    MAX(KPI_Monthly[Actual]),
+			    KPI_Monthly[KPI] = "Total Clients"
+			)
+		formatString: 0
+		lineageTag: da0fe2e0-b7ff-49ec-89ca-e924e595e8f7
+
+	measure 'Total Leads' =
+			
+			CALCULATE(
+			    MAX(KPI_Monthly[Actual]),
+			    KPI_Monthly[KPI] = "Leads"
+			)
+		formatString: 0
+		lineageTag: 8165fe1c-fae3-41fb-a4e7-397b26b4a9c9
+
+	measure Escalations =
+			
+			CALCULATE(
+			    MAX(KPI_Monthly[Actual]),
+			    KPI_Monthly[KPI] = "Escalations"
+			)
+		formatString: 0
+		lineageTag: a8eb9323-9cc5-4ce0-80b0-64daa08b979a
+
+	measure 'Total Projects' =
+			
+			CALCULATE(
+			    MAX(KPI_Monthly[Actual]),
+			    KPI_Monthly[KPI] = "Total Projects"
+			)
+		formatString: 0
+		lineageTag: 5e605ece-4b22-4a73-8750-30fa5e595deb
+
+	measure 'Billable Projects' =
+			
+			CALCULATE(
+			    MAX(KPI_Monthly[Actual]),
+			    KPI_Monthly[KPI] = "Billable Projects"
+			)
+		formatString: 0
+		lineageTag: 16e1d85d-dd60-4329-81e7-9835128f2bde
+
+	measure 'Internal Projects' =
+			
+			CALCULATE(
+			    MAX(KPI_Monthly[Actual]),
+			    KPI_Monthly[KPI] = "Internal Projects"
+			)
+		formatString: 0
+		lineageTag: 4d0f242e-4d63-475c-8c21-ea7d96512778
+
+	measure 'Critical Risks' =
+			
+			CALCULATE(
+			    MAX(KPI_Monthly[Actual]),
+			    KPI_Monthly[KPI] = "Critical Risks"
+			)
+		formatString: 0
+		lineageTag: 95ca7038-0f64-412e-b97f-4b83d612bfe4
+
+	measure 'Resource Shortages' =
+			
+			CALCULATE(
+			    MAX(KPI_Monthly[Actual]),
+			    KPI_Monthly[KPI] = "Resource Shortages"
+			)
+		formatString: 0
+		lineageTag: 113396f5-d696-4627-bc62-6613b8574693
+
+	measure 'Total Revenue' =
+			
+			SUM(Revenue_vs_Cost[Revenue])
+		formatString: 0
+		lineageTag: 0dd994c5-3fae-4f36-a925-881f5a34778a
+
+	measure 'Total Cost' =
+			
+			SUM(Revenue_vs_Cost[Cost])
+		formatString: 0
+		lineageTag: 12db85d3-6918-4638-bf9a-80a51af46544
+
+	measure Profit =
+			
+			[Total Revenue] - [Total Cost]
+		formatString: 0
+		lineageTag: 0ef8eeb1-daa5-458c-bdc0-25415434c740
+
+	measure 'Profit Margin %' =
+			
+			DIVIDE(
+			    [Profit],
+			    [Total Revenue]
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: 860c834a-a55b-498d-9961-7675a06092eb
+
+	measure 'Total Workforce' =
+			
+			SUM(Workforce_Mix[Employees])
+		formatString: 0
+		lineageTag: 8a32dc3f-9947-40cf-acde-e48c38759c2b
+
+	measure 'Workforce %' =
+			
+			DIVIDE(
+			    SUM(Workforce_Mix[Employees]),
+			    CALCULATE(
+			        SUM(Workforce_Mix[Employees]),
+			        ALL(Workforce_Mix)
+			    )
+			)
+		lineageTag: 5be7b007-391d-4f0d-90c8-8d560d4ee658
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Headcount' =
+			
+			SUM(Capacity_Domain[Headcount])
+		formatString: 0
+		lineageTag: 5760d4a9-b822-42f6-983d-30ba3a42fb7f
+
+	measure 'Domain Capacity %' =
+			
+			DIVIDE(
+			    SUM(Capacity_Domain[Headcount]),
+			    CALCULATE(
+			        SUM(Capacity_Domain[Headcount]),
+			        ALL(Capacity_Domain)
+			    )
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: c0962c59-af7a-4668-a392-f315947bf80e
+
+	measure 'PM Projects' =
+			
+			SUM(PM_Scorecard[Projects])
+		formatString: 0
+		lineageTag: d92e18e7-51d1-4eee-93de-5a5a16aa7592
+
+	measure 'Avg Utilization' =
+			
+			AVERAGE(
+			    PM_Scorecard[UtilizationPct]
+			)
+		lineageTag: ab7fd487-770b-411c-bb3d-30f82c836b2f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Billability' =
+			
+			AVERAGE(
+			    PM_Scorecard[BillabilityPct]
+			)
+		lineageTag: e618a600-dc5e-4f90-9031-eb391db06943
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'PM Risks' =
+			
+			SUM(
+			    PM_Scorecard[Risks]
+			)
+		formatString: 0
+		lineageTag: 1738b454-6ae7-42c6-9283-67377fd1da63
+
+	measure 'Active Projects' =
+			
+			SUM(PM_Scorecard[Projects])
+		formatString: 0
+		lineageTag: ee647385-4998-40f4-8aae-6b382ce33840
+
+	measure 'Total Risks' =
+			
+			SUM(PM_Scorecard[Risks])
+		formatString: 0
+		lineageTag: 22b3a2bc-9edd-49e7-b00e-ffc40dcf2363
+
+	measure 'Average PM Utilization' =
+			
+			AVERAGE(PM_Scorecard[UtilizationPct])
+		lineageTag: c69a6554-131e-4065-aab2-281c5cdace59
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average PM Billability' =
+			
+			AVERAGE(PM_Scorecard[BillabilityPct])
+		lineageTag: 021c1a93-5101-445f-bd36-1307e80b0029
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Measure
+		lineageTag: 4f9631a9-1714-4b0a-ada7-db0effb556b4
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Previous Month Employees' =
+			
+			VAR CurrentDate =
+			    CALCULATE(
+			        MAX(KPI_Monthly[Date]),
+			        KPI_Monthly[KPI] = "Total Employees"
+			    )
+			RETURN
+			CALCULATE(
+			    MAX(KPI_Monthly[Actual]),
+			    FILTER(
+			        ALL(KPI_Monthly),
+			        KPI_Monthly[KPI] = "Total Employees"
+			            && KPI_Monthly[Date] = EDATE(CurrentDate,-1)
+			    )
+			)
+		formatString: 0
+		lineageTag: e106fb4e-d68c-4498-aa54-1983051bfac3
+
+	measure 'Employee MoM' =
+			
+			DIVIDE(
+			    [Total Employees] - [Previous Month Employees],
+			    [Previous Month Employees]
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 0d0ee827-6861-4b52-94d0-fa425b92a9e7
+
+	measure 'Contracts Expiring' =
+			
+			4
+		formatString: 0
+		lineageTag: 46f2520f-238d-40d5-8ac4-c3b38c7d4a3d
+
+	measure 'Invoices Overdue' =
+			
+			2
+		formatString: 0
+		lineageTag: 582feb69-ecb6-48dd-a0db-4cb66c241de4
+
+	column Column1
+		dataType: string
+		lineageTag: b65461a8-4117-4802-ab67-30482db1277e
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Measures (2)' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
