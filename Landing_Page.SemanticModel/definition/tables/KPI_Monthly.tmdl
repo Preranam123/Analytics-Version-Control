@@ -1,0 +1,87 @@
+table KPI_Monthly
+	lineageTag: 85992954-6a8b-479f-a510-5c01cefadff5
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e4b7566a-3564-4456-a8b9-913b9e90be37
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column KPI
+		dataType: string
+		lineageTag: af215be9-99e8-417a-b727-b89601e0c10a
+		summarizeBy: none
+		sourceColumn: KPI
+
+		annotation SummarizationSetBy = Automatic
+
+	column Actual
+		dataType: int64
+		formatString: 0
+		lineageTag: be2fb18a-153a-47b9-9b67-c26def43c395
+		summarizeBy: sum
+		sourceColumn: Actual
+
+		annotation SummarizationSetBy = Automatic
+
+	column Target
+		dataType: int64
+		formatString: 0
+		lineageTag: 2eeb2b72-7811-499b-ab3f-6ace85186230
+		summarizeBy: sum
+		sourceColumn: Target
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 43200842-8e9a-4160-8a9d-7f612b8ae242
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		lineageTag: 2a226ea1-7248-4d90-b260-8cd48ed754e3
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNo
+		dataType: int64
+		formatString: 0
+		lineageTag: 454f3aac-385b-46b6-a735-e7d4579220c4
+		summarizeBy: sum
+		sourceColumn: MonthNo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		lineageTag: 5c7b00a2-a15b-42a2-8950-edd112b05918
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition KPI_Monthly = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Prerana\Downloads\Founder_Command_Center_Updated_Dataset.xlsx"), null, true),
+				    KPI_Monthly_Sheet = Source{[Item="KPI_Monthly",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(KPI_Monthly_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"KPI", type text}, {"Actual", Int64.Type}, {"Target", Int64.Type}, {"Year", Int64.Type}, {"Quarter", type text}, {"MonthNo", Int64.Type}, {"Month", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

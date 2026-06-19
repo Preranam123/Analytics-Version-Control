@@ -1,0 +1,61 @@
+table Revenue_vs_Cost
+	lineageTag: 816bb374-795c-432c-9299-d001d1e45d88
+
+	column Month
+		dataType: string
+		lineageTag: 3c463fbc-fda2-4570-8607-9a8e64912fb0
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Revenue
+		dataType: int64
+		formatString: 0
+		lineageTag: 12df0f29-c1c2-4f3e-b2f2-831fca4d355b
+		summarizeBy: none
+		sourceColumn: Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cost
+		dataType: int64
+		formatString: 0
+		lineageTag: 3190dfbe-36d2-413a-81e3-70c342da1919
+		summarizeBy: none
+		sourceColumn: Cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Order' =
+			
+			IF(Revenue_vs_Cost[Month]="Jan",1,
+			IF(Revenue_vs_Cost[Month]="Feb",2,
+			IF(Revenue_vs_Cost[Month]="Mar",3,
+			IF(Revenue_vs_Cost[Month]="Apr",4,
+			IF(Revenue_vs_Cost[Month]="May",5,
+			IF(Revenue_vs_Cost[Month]="Jun",6,
+			IF(Revenue_vs_Cost[Month]="Jul",7,
+			IF(Revenue_vs_Cost[Month]="Aug",8,
+			IF(Revenue_vs_Cost[Month]="Sep",9,
+			IF(Revenue_vs_Cost[Month]="Oct",10,
+			IF(Revenue_vs_Cost[Month]="Nov",11,12)))))))))))
+		formatString: 0
+		lineageTag: bd6f0022-0812-42ef-baeb-4c4e8a217184
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Revenue_vs_Cost = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Prerana\Downloads\Founder_Command_Center_Updated_Dataset.xlsx"), null, true),
+				    Revenue_vs_Cost_Sheet = Source{[Item="Revenue_vs_Cost",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Revenue_vs_Cost_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Month", type text}, {"Revenue", Int64.Type}, {"Cost", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

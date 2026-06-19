@@ -1,0 +1,88 @@
+table DimDate
+	lineageTag: ca58b80c-70cd-4c40-a454-806aaa540477
+
+	column Date
+		formatString: General Date
+		lineageTag: fff93dfb-a6e8-4acd-9ffe-9af16324494b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: c4e5282b-e97a-49f2-9e86-2f5ec455b937
+			defaultHierarchy: LocalDateTable_ee77dfa4-aaa0-4f05-861d-3de360bef216.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: c7a7ec68-dc86-4a03-ab59-9793cc310355
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month No'
+		formatString: 0
+		lineageTag: aebf346a-a354-4558-b40f-ad01c652cfc4
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month No]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		lineageTag: 4bc85c65-78c7-4fdf-bec0-5e4ada13d1e7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Year'
+		lineageTag: c45dff71-8706-4264-bb4e-2be46aecf62b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Year]
+		sortByColumn: 'Year Month Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: 417e9bed-7ebb-4246-a759-0a9ad22e03fc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month Sort'
+		formatString: 0
+		lineageTag: f5566d5f-5f6b-4314-861b-142e23880e97
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year Month Sort]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS (
+				    CALENDAR (
+				        DATE(2026,1,1),
+				        DATE(2026,12,31)
+				    ),
+				    "Year", YEAR([Date]),
+				    "Month No", MONTH([Date]),
+				    "Month", FORMAT([Date],"MMM"),
+				    "Month Year", FORMAT([Date],"MMM yyyy"),
+				    "Quarter", "Q" & FORMAT([Date],"Q"),
+				    "Year Month Sort", YEAR([Date])*100 + MONTH([Date])
+				)
+
+	annotation PBI_Id = a79514ccf9a946c5ba97624a89ed6264
+

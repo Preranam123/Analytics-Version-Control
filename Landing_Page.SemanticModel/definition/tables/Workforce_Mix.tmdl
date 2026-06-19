@@ -1,0 +1,33 @@
+table Workforce_Mix
+	lineageTag: 12df270a-d0cb-4fcf-8921-c7bf46bf45e8
+
+	column EmploymentType
+		dataType: string
+		lineageTag: eecf3b50-ef27-41de-85a3-7ad1f75f9c35
+		summarizeBy: none
+		sourceColumn: EmploymentType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Employees
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a772d67-aa3d-4be1-abf0-23194da3d686
+		summarizeBy: sum
+		sourceColumn: Employees
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Workforce_Mix = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Prerana\Downloads\Founder_Command_Center_Updated_Dataset.xlsx"), null, true),
+				    Workforce_Mix_Sheet = Source{[Item="Workforce_Mix",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Workforce_Mix_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"EmploymentType", type text}, {"Employees", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,94 @@
+table Revenue_vs_Cost_New
+	lineageTag: edf4bb36-97bb-4f88-bc35-0a821b1129be
+
+	measure 'Total RevenueNew' =
+			
+			SUM(Revenue_vs_Cost_New[Revenue])
+		formatString: 0
+		lineageTag: 3b897a72-b705-462f-a68b-7a61f27def7e
+
+	measure 'Total CostNew' =
+			
+			SUM(Revenue_vs_Cost_New[Cost])
+		formatString: 0
+		lineageTag: 679f159b-10e2-4eaf-a6f1-689dd619924c
+
+	measure ProfitN =
+			
+			[Total Revenue] - [Total Cost]
+		formatString: 0
+		lineageTag: b401d3d4-3c63-4d29-9e52-e910d9aa1c06
+
+	measure 'NProfit Margin %' =
+			
+			DIVIDE(
+			    [Profit],
+			    [Total Revenue]
+			)
+		lineageTag: e5735da8-d957-4303-a4fb-2340b56089e2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Month Order'
+		formatString: 0
+		lineageTag: 1da9df58-42b8-4cc2-b745-f6a2e5fcc01b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		lineageTag: ba17c733-eaf3-4ca3-8437-a496fccb7f15
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month]
+		sortByColumn: 'Month Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Revenue
+		formatString: 0
+		lineageTag: 8f7b6608-83d4-4289-a245-2f89f0e3e44e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Revenue]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cost
+		formatString: 0
+		lineageTag: f8da29dd-f286-40f7-abde-96ae270c03de
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Cost]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Revenue_vs_Cost_New = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Month Order", INTEGER,
+				    "Month", STRING,
+				    "Revenue", INTEGER,
+				    "Cost", INTEGER,
+				{
+				    {1,"Jan",120000,45000},
+				    {2,"Feb",140000,50000},
+				    {3,"Mar",190000,55000},
+				    {4,"Apr",170000,52000},
+				    {5,"May",210000,60000},
+				    {6,"Jun",250000,65000},
+				    {7,"Jul",240000,62000},
+				    {8,"Aug",270000,68000},
+				    {9,"Sep",250000,65000},
+				    {10,"Oct",290000,72000},
+				    {11,"Nov",320000,78000},
+				    {12,"Dec",350000,82000}
+				}
+				)
+
+	annotation PBI_Id = 10ecba9ca3fb466da3db6b6ae6786941
+

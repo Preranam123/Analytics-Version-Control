@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "231885f03ae8e6dd1504",
+  "position": {
+    "x": 717.80272271315982,
+    "y": 114.9462622402675,
+    "z": 1003,
+    "height": 201.76737520898018,
+    "width": 245.78934798184858,
+    "tabOrder": 1003
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Capacity_Domain"
+                    }
+                  },
+                  "Property": "Domain"
+                }
+              },
+              "queryRef": "Capacity_Domain.Domain",
+              "nativeQueryRef": "Domain",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Capacity_Domain"
+                        }
+                      },
+                      "Property": "Headcount"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Capacity_Domain.Headcount)",
+              "nativeQueryRef": "Sum of Headcount"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Capacity_Domain"
+                      }
+                    },
+                    "Property": "Headcount"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

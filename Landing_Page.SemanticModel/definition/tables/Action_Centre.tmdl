@@ -1,0 +1,56 @@
+table Action_Centre
+	lineageTag: 6926efb6-5001-4e4e-991b-a4b780e1cf67
+
+	column Priority
+		dataType: string
+		lineageTag: dcde8a3b-81ba-4cd3-9354-0e9910539bd9
+		summarizeBy: none
+		sourceColumn: Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: 6f1a1bf1-2325-4a41-a7ff-3f062abe6cea
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Owner
+		dataType: string
+		lineageTag: 8fc1475e-5599-47f7-abcb-0ad752a27c88
+		summarizeBy: none
+		sourceColumn: Owner
+
+		annotation SummarizationSetBy = Automatic
+
+	column DueDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c5a4416a-70a5-4812-99cb-8c514be43ba7
+		summarizeBy: none
+		sourceColumn: DueDate
+
+		variation Variation
+			isDefault
+			relationship: 49fdae10-bea3-4568-b379-825dbed40cdf
+			defaultHierarchy: LocalDateTable_4e7c8807-fe5f-409d-a501-526140596fc0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Action_Centre = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Prerana\Downloads\Founder_Command_Center_Updated_Dataset.xlsx"), null, true),
+				    Action_Centre_Sheet = Source{[Item="Action_Centre",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Action_Centre_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Priority", type text}, {"Description", type text}, {"Owner", type text}, {"DueDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
